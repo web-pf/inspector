@@ -5,9 +5,6 @@ export interface ICreateInspectorConfig {
   server: string
   appId: string
 }
-export const beaconApi = {
-  performanceTiming: '/beacon/performance_timing',
-}
 export default function createInspector(inspectorConfig: ICreateInspectorConfig) {
   const { server, appId } = inspectorConfig
 
@@ -25,6 +22,6 @@ export default function createInspector(inspectorConfig: ICreateInspectorConfig)
   // }
 
   window.onload = () => {
-    eventHandler.push(beaconApi.performanceTiming, getNavigationTiming())
+    eventHandler.push('nav_timing', getNavigationTiming())
   }
 }

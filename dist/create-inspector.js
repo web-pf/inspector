@@ -2,9 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var push_event_1 = require("./push-event");
 var get_navigation_timing_1 = require("./utils/get-navigation-timing");
-exports.beaconApi = {
-    performanceTiming: '/beacon/performance_timing',
-};
 function createInspector(inspectorConfig) {
     var server = inspectorConfig.server, appId = inspectorConfig.appId;
     var eventHandler = push_event_1.createEventHandler(server, appId);
@@ -17,7 +14,7 @@ function createInspector(inspectorConfig) {
     //   eventHandler.push('/api/v1/beacon/wpf_window_err', message)
     // }
     window.onload = function () {
-        eventHandler.push(exports.beaconApi.performanceTiming, get_navigation_timing_1.getNavigationTiming());
+        eventHandler.push('nav_timing', get_navigation_timing_1.getNavigationTiming());
     };
 }
 exports.default = createInspector;

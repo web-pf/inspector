@@ -1,3 +1,3 @@
 export declare function createEventHandler(server: string, appId: string): {
-    push: (api: string, payload: object) => void;
+    push: (name: string, payload: object) => void;
 };

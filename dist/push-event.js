@@ -2,11 +2,13 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 function createEventHandler(server, appId) {
     return {
-        push: function (api, payload) {
+        push: function (name, payload) {
             var beaconData = new FormData();
             beaconData.append('appId', appId);
+            beaconData.append('name', name);
             beaconData.append('record', JSON.stringify(payload));
-            navigator.sendBeacon(server + api, beaconData);
+            beaconData.append('timestamp', String(Date.now()));
+            navigator.sendBeacon(server + '/beacon', beaconData);
         },
     };
 }
