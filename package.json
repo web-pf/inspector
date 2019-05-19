@@ -1,5 +1,5 @@
 {
-  "name": "webperf",
+  "name": "perf-inspector",
   "version": "0.0.1",
   "description": "The inspector of web-perf platform",
   "main": "./dist/index.js",
