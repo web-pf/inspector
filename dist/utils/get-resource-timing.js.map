@@ -1,0 +1,1 @@
+{"version":3,"file":"get-resource-timing.js","sourceRoot":"","sources":["../../src/utils/get-resource-timing.ts"],"names":[],"mappings":";;AAAa,QAAA,iBAAiB,GAAG;IAC/B,OAAO,WAAW,CAAC,gBAAgB,CAAC,UAAU,CAAC,CAAC,MAAM,CAAC,UAAA,IAAI;QACzD,IAAI,IAAI,CAAC,IAAI,CAAC,QAAQ,CAAC,qBAAqB,CAAC,EAAE;YAC7C,OAAO,KAAK,CAAA;SACb;QAED,OAAO,IAAI,CAAA;IACb,CAAC,CAAC,CAAA;AACJ,CAAC,CAAA"}

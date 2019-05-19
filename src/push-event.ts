@@ -8,7 +8,7 @@ export function createEventHandler(server: string, appId: string) {
       beaconData.append('record', JSON.stringify(payload))
       beaconData.append('timestamp', String(Date.now()))
 
-      navigator.sendBeacon(server + '/beacon', beaconData)
+      navigator.sendBeacon(server + '/beacon?monitor_ignore=true', beaconData)
     },
   }
 }

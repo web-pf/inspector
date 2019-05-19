@@ -1,5 +1,6 @@
 import { createEventHandler } from './push-event'
-import {getNavigationTiming} from './utils/get-navigation-timing'
+import { getNavigationTiming } from './utils/get-navigation-timing'
+import { getResourceTiming } from './utils/get-resource-timing'
 
 export interface ICreateInspectorConfig {
   server: string
@@ -10,18 +11,41 @@ export default function createInspector(inspectorConfig: ICreateInspectorConfig)
 
   const eventHandler = createEventHandler(server, appId)
 
-  // const nativeControlError = console.error
+  const nativeError = console.error
+  console.error = (message, ...restOptions) => {
+    nativeError(message, ...restOptions)
+    eventHandler.push('error', {
+      type: 'console_error',
+      message,
+    })
+  }
 
-  // window.console.error = (message?: any, optionalParams?: any[]) => {
-  //   nativeControlError(message, optionalParams)
-  //   eventHandler.push('/api/v1/beacon/wpf_console_err', message)
-  // }
-
-  // window.onerror = (message: any) => {
-  //   eventHandler.push('/api/v1/beacon/wpf_window_err', message)
-  // }
+  window.addEventListener('unhandledrejection', function(e) {
+    const { message, stack } = e.reason
+    eventHandler.push('error', {
+      type: 'promise_error',
+      message,
+      stack,
+    })
+  })
+  window.addEventListener(
+    'error',
+    event => {
+      const { message, filename, lineno, colno, error } = event
+      eventHandler.push('error', {
+        type: 'window_error',
+        message,
+        filename,
+        lineno,
+        colno,
+        stack: error.stack,
+      })
+    },
+    true
+  )
 
   window.onload = () => {
     eventHandler.push('nav_timing', getNavigationTiming())
+    eventHandler.push('resource_timing', getResourceTiming())
   }
 }
