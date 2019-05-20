@@ -19,7 +19,14 @@ export default function createInspector(inspectorConfig: ICreateInspectorConfig)
       message,
     })
   }
-
+  const nativeWarn = console.warn
+  console.warn = (message, ...restOptions) => {
+    nativeWarn(message, ...restOptions)
+    eventHandler.push('error', {
+      type: 'console_error',
+      message,
+    })
+  }
   window.addEventListener('unhandledrejection', function(e) {
     const { message, stack } = e.reason
     eventHandler.push('error', {
